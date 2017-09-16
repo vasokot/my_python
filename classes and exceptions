@@ -1,0 +1,63 @@
+ress = ''
+
+
+def get_parent(child):
+    r = None
+    for key in d:
+        if parrent in d[key]:
+            r = key
+    return r
+
+
+def get_pos(parrent, child):
+    ress = 'No'
+    if child in d:
+        all_parrents = d[child]
+
+    if all_parrents == []:
+        ress = 'No'
+    elif parrent in all_parrents:
+        ress = 'Yes'
+
+    else:
+        for parrent1 in all_parrents:
+            if get_pos(parrent, parrent1) == 'Yes':
+                ress = 'Yes'
+
+    return ress
+d={}
+n = int(input())
+
+for i in range(n):
+    s = input().split(' : ')
+    if len(s) == 1 or s[0] == s[1]:
+        d[s[0]] = []
+    else:
+        if s[0] not in d:
+            d[s[0]] = []
+
+        s1 = s[1].split()
+        for el in s1:
+            d[s[0]].append(el)
+
+m = int(input())
+lst = []
+lst2=[]
+for j in range(m):
+    s2 = input()
+    if s2 not in d:
+        break
+    if len(lst) >= 1:
+        for t in range(len(lst)):
+            parent=lst[t]
+            res = get_pos(parent, s2)
+            if res =='Yes':
+               if s2 not in lst2:
+                   lst2.append(s2)
+        if res !='Yes':
+            lst.append(s2)
+    else:
+        lst.append(s2)
+
+for st in lst2:
+    print(st)
